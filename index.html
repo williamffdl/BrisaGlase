@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brisa Glase - Bolos e Doces</title>
+  <link rel="stylesheet" href="glasse.css">
+  <link rel="javascript" href="glase.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="b.png" alt="Brisa Glase Logo">
+  </nav>
+
+  <div class="cart" onclick="toggleCart()">
+    <img src="c.png" alt="Carrinho de Compras">
+  </div>
+
+  <div class="cart-popup" id="cartPopup">
+    <h3>Seu Carrinho</h3>
+    <div id="cartItems"></div>
+    <div class="cart-total">Total: R$ 0,00</div>
+    <button class="checkout-button" onclick="checkout()">Finalizar Pedido</button>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <p>Brisa Glase</p>
+      <h1>Bolos e doces</h1>
+    </div>
+  </header>
+
+  <section class="product-list">
+    <h2>Produtos</h2>
+    <div class="product-item">
+      <img src="d.png" alt="Bolo com cobertura de maracuja">
+      <span class="product-name">Bolo com cobertura de maracuja</span>
+      <span class="product-price">R$ 50</span>
+      <button class="add-button" onclick="addToCart('Bolo com cobertura de maracuja', 50)">Adicionar</button>
+    </div>
+    <div class="product-item">
+      <img src="e.png" alt="bolo de Chocolate com MM em cima">
+      <span class="product-name">bolo de Chocolate com MM em cima</span>
+      <span class="product-price">R$ 35,00</span>
+      <button class="add-button" onclick="addToCart('bolo de Chocolate com MM em cima', 35)">Adicionar</button>
+    </div>
+  
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="b.png" alt="Brisa Glase Logo">
+      <span>Brisa Glase</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://wa.me/558695421485">WhatsApp</a>
+      <p>+55 86 9542-1485</p>
+      <a href="https://www.instagram.com/brisaglace?igsh=MW9vb3R4dG80NGpwaw==">Instagram</a>
+      <p>@brisaglace</p>
+    </div>
+  </footer>
+
+  <!-- Modal de login -->
+  <div id="loginModal">
+    <div>
+      <h3>Identifique-se</h3>
+      <input type="text" id="nome" placeholder="Nome completo">
+      <input type="text" id="endereco" placeholder="Endereço (Rua, Nº)">
+      <input type="text" id="cpf" placeholder="CPF">
+      <button onclick="salvarDadosCliente()">Salvar</button>
+    </div>
+  </div>
+  <script>const carrinho = [];
+
+    function toggleCart() {
+      const popup = document.getElementById('cartPopup');
+      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    function addToCart(nome, preco) {
+      carrinho.push({ nome, preco });
+      atualizarCarrinho();
+    }
+    
+    function atualizarCarrinho() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+    
+      carrinho.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `<span>${item.nome}</span><span>R$ ${item.preco.toFixed(2)}</span>`;
+        cartItemsContainer.appendChild(itemDiv);
+        total += item.preco;
+      });
+    
+      document.querySelector('.cart-total').textContent = `Total: R$ ${total.toFixed(2)}`;
+    }
+    
+    function verificarDadosCliente() {
+      const nome = localStorage.getItem("nomeCliente");
+      const endereco = localStorage.getItem("enderecoCliente");
+      const cpf = localStorage.getItem("cpfCliente");
+    
+      if (!nome || !endereco || !cpf) {
+        document.getElementById('loginModal').style.display = 'flex';
+        return false;
+      }
+      return true;
+    }
+    
+    function salvarDadosCliente() {
+      const nome = document.getElementById("nome").value.trim();
+      const endereco = document.getElementById("endereco").value.trim();
+      const cpf = document.getElementById("cpf").value.trim();
+    
+      if (nome && endereco && cpf) {
+        localStorage.setItem("nomeCliente", nome);
+        localStorage.setItem("enderecoCliente", endereco);
+        localStorage.setItem("cpfCliente", cpf);
+        document.getElementById('loginModal').style.display = 'none';
+        checkout();
+      } else {
+        alert("Preencha todos os campos corretamente.");
+      }
+    }
+    
+    function checkout() {
+      if (!verificarDadosCliente()) return;
+    
+      const nome = localStorage.getItem("nomeCliente");
+      const endereco = localStorage.getItem("enderecoCliente");
+      const cpf = localStorage.getItem("cpfCliente");
+    
+      let mensagem = `Olá! Gostaria de fazer um pedido:\n\n`;
+      let total = 0;
+    
+      carrinho.forEach(item => {
+        mensagem += `- ${item.nome}: R$ ${item.preco.toFixed(2)}\n`;
+        total += item.preco;
+      });
+    
+      mensagem += `\nTotal: R$ ${total.toFixed(2)}\n\n`;
+      mensagem += `🧾 Dados do Cliente:\nNome: ${nome}\nCPF: ${cpf}\nEndereço: ${endereco}, Esperantina - PI`;
+    
+      const phone = "558695421485";
+      const encodedMessage = encodeURIComponent(mensagem);
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+    }
+    
+    atualizarCarrinho();</script>
+</body>
+</html>
