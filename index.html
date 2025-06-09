@@ -30,23 +30,40 @@
       <h1>Bolos e doces</h1>
     </div>
   </header>
+ <section class="product-list">
+  <h2>Produtos</h2>
+  <div class="product-grid">
+    
+    <!-- Produto 1 -->
+    <div class="product-card">
+      <div class="product-image" style="background-image: url('d.png');"></div>
+      <div class="product-info">
+        <span class="product-name">Bolo com cobertura de maracujá</span>
+        <span class="product-price">R$ 50,00</span>
+      </div>
+      <div class="info-overlay">
+        <h4>Bolo com maracujá</h4>
+        <p>Feito com polpa natural de maracujá, massa fofinha.</p>
+        <button class="buy-btn" onclick="addToCart('Bolo com cobertura de maracujá', 50)">Adicionar</button>
+      </div>
+    </div>
 
-  <section class="product-list">
-    <h2>Produtos</h2>
-    <div class="product-item">
-      <img src="d.png" alt="Bolo com cobertura de maracuja">
-      <span class="product-name">Bolo com cobertura de maracuja</span>
-      <span class="product-price">R$ 50</span>
-      <button class="add-button" onclick="addToCart('Bolo com cobertura de maracuja', 50)">Adicionar</button>
+    <!-- Produto 2 -->
+    <div class="product-card">
+      <div class="product-image" style="background-image: url('e.png');"></div>
+      <div class="product-info">
+        <span class="product-name">Bolo de Chocolate com MM</span>
+        <span class="product-price">R$ 35,00</span>
+      </div>
+      <div class="info-overlay">
+        <h4>Bolo de Chocolate</h4>
+        <p>Chocolate cremoso e cobertura com MM. Crianças amam!</p>
+        <button class="buy-btn" onclick="addToCart('Bolo de Chocolate com MM em cima', 35)">Adicionar</button>
+      </div>
     </div>
-    <div class="product-item">
-      <img src="e.png" alt="bolo de Chocolate com MM em cima">
-      <span class="product-name">bolo de Chocolate com MM em cima</span>
-      <span class="product-price">R$ 35,00</span>
-      <button class="add-button" onclick="addToCart('bolo de Chocolate com MM em cima', 35)">Adicionar</button>
-    </div>
-  
-  </section>
+
+  </div>
+</section>
 
   <footer class="footer">
     <div class="footer-logo">
